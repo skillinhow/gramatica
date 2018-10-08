@@ -1,6 +1,6 @@
 ﻿const {
 	int max1 = 10, max2 = 20;
-	real pi = 3.1415;
+	float pi = 3.1415;
 }
 
 class pessoa {
@@ -14,7 +14,7 @@ class aluno extends pessoa {
 	variables { 
 		string curso;
 		int matricula;
-		real bolsa;
+		float bolsa;
 	}
 	
 	method void imprimir (aluno x[max1]) {
@@ -54,7 +54,7 @@ class aluno extends pessoa {
 void main ( ) {
 	variables {
 		aluno objaluno1, objaluno2, objaluno3;
-		real x;	
+		float x;	
 	}
 
 	objaluno1.bolsa = calcula_aumento_bolsa(objaluno1.bolsa, 0.30);
