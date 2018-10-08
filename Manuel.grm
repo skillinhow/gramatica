@@ -1,0 +1,39 @@
+﻿! Welcome to GOLD Parser Builder 5.2
+"Name"          = 'Manuel'
+"Author"        = 'Lucas Cardoso'
+"Version"       = '1.0'
+"About"         = 'Mi-Compiladores'
+"Start Symbol"  = <inicio> 
+                
+! Elementos Terminais
+Identificador      =  {Letter}({AlphaNumeric} | '_')*
+Numero          = {Number}+  ('.'{Number}+ )?
+Boolean        =  'true' | 'false'
+               
+!Não Terminais
+
+!Definições Básicas
+<inicio> ::= <Classe> 
+<Tipo> ::= 'float' | 'int'| 'string' | 'bool'
+!<TipoRetorno> ::= 'float' | 'int'| 'string' | 'bool' | 'void'
+        
+!Classe
+<Classe> ::= 'class' Identificador '{' <Codigo> '}' <Classe> | 'class' Identificador 'extends' Identificador '{' <Codigo> '}' <Classe> |
+<Codigo> ::= <Variaveis> <Codigo> | <Metodo> <Codigo> | <Atribuicao> <Codigo>| 
+
+!Constantes                   
+<Constantes> ::= 'const' '{' <MultConst> '}'
+<MultConst> ::= <Tipo> <AtribuicaoConst> ';' <MultConst> |             
+<AtribuicaoConst> ::= Identificador '=' Numero ',' <AtribuicaoConst> | Identificador '=' Numero |
+
+!Variaveis   
+<Variaveis> ::= 'variables' '{' <MultVar> '}' 
+<MultVar> ::= <Tipo> <DeclaracaoVar> ';' <MultVar> |           
+<DeclaracaoVar> ::= Identificador ',' <DeclaracaoVar> | Identificador |
+                 
+!Métodos
+<Metodo> ::= 'method' <Tipo> Identificador '(' ')' '{' <Codigo> 'return' Idendificador ';' '}' | 'method' 'void' Identificador '(' ')' '{' <Codigo>  '}' 
+
+!Aleatorios          
+<Atribuicao> ::= Identificador '=' Numero ';'
+              
