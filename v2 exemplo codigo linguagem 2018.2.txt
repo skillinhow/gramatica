@@ -1,0 +1,64 @@
+﻿const {
+	int max1 = 10, max2 = 20;
+	real pi = 3.1415;
+}
+
+class pessoa {
+	variables {
+		string nome, endereco;
+		int idade;
+	}
+}
+
+class aluno extends pessoa {
+	variables { 
+		string curso;
+		int matricula;
+		real bolsa;
+	}
+	
+	method void imprimir (aluno x[max1]) {
+		variables {
+			int i;	
+		}
+	
+		i = 0;
+		while (i < 10) {
+			write(x[i].nome, x[i].endereco, x[i].idade, x[i].curso, x[i].matricula, x[i].bolsa);
+			i++;		
+		}
+		return (void);  // Este caso de retorno o grupo deve decidir se terá ou não. Se tiver, o grupo define como será.
+	}
+
+	method void imprimir ( ) {
+
+		write("Imprimindo dados do aluno");
+		write(nome, endereco, idade, curso, matricula, curso);
+		
+		return (void);
+	}
+	
+	method float calcula_aumento_bolsa (float bolsa, float juros) {
+		variables {
+			float result;
+		}
+		result = bolsa + (bolsa * juros);
+		return(result);
+	}
+	
+} // Fim class aluno
+
+// Método principal
+// O grupo decide como será a implementação do método main. Pode ser dentro de uma classe, pode ser fora de qualquer classe. Deixar que o grupo decida!
+
+void main ( ) {
+	variables {
+		aluno objaluno1, objaluno2, objaluno3;
+		real x;	
+	}
+
+	objaluno1.bolsa = calcula_aumento_bolsa(objaluno1.bolsa, 0.30);
+
+	objaluno1.imprimir();
+
+} // Fim método principal
