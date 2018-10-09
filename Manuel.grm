@@ -3,7 +3,7 @@
 "Author"        = 'Lucas Cardoso'
 "Version"       = '1.0'
 "About"         = 'Mi-Compiladores'
-"Start Symbol"  = <inicio> 
+"Start Symbol"  = <Inicio> 
                 
 ! Elementos Terminais
 Identificador      =  {Letter}({AlphaNumeric} | '_')*
@@ -13,27 +13,52 @@ Boolean        =  'true' | 'false'
 !Não Terminais
 
 !Definições Básicas
-<inicio> ::= <Classe> 
+<Inicio> ::= <Constantes> <Classe> | <Classe>
 <Tipo> ::= 'float' | 'int'| 'string' | 'bool'
 !<TipoRetorno> ::= 'float' | 'int'| 'string' | 'bool' | 'void'
+<OperadorLogico> ::= '!' | '&&' | '||'
+<OperadorRelacional> ::= '!=' | '==' | '<' | '<=' | '>' | '>=' | '='
         
 !Classe
-<Classe> ::= 'class' Identificador '{' <Codigo> '}' <Classe> | 'class' Identificador 'extends' Identificador '{' <Codigo> '}' <Classe> |
-<Codigo> ::= <Variaveis> <Codigo> | <Metodo> <Codigo> | <Atribuicao> <Codigo>| 
+<Classe> ::= 'class' <NomeClasse> '{' <Codigo> '}' <Classe> | 'class' <NomeClasse> 'extends' <NomeClasse> '{' <Codigo> '}' <Classe> |
+<Codigo> ::= <Variaveis> <Codigo> | <Metodo> <Codigo> | <Atribuicao> <Codigo>| <If> <Codigo> | <While> <Codigo> | <Read> <Codigo> | <Write> <Codigo> |
+<NomeClasse> ::= Identificador
 
 !Constantes                   
 <Constantes> ::= 'const' '{' <MultConst> '}'
 <MultConst> ::= <Tipo> <AtribuicaoConst> ';' <MultConst> |             
 <AtribuicaoConst> ::= Identificador '=' Numero ',' <AtribuicaoConst> | Identificador '=' Numero |
+<Tipos> ::= <Tipo> | <NomeClasse>
 
 !Variaveis   
 <Variaveis> ::= 'variables' '{' <MultVar> '}' 
-<MultVar> ::= <Tipo> <DeclaracaoVar> ';' <MultVar> |           
+<MultVar> ::= <Tipos> <DeclaracaoVar> ';' <MultVar> |           
 <DeclaracaoVar> ::= Identificador ',' <DeclaracaoVar> | Identificador |
                  
 !Métodos
-<Metodo> ::= 'method' <Tipo> Identificador '(' ')' '{' <Codigo> 'return' Idendificador ';' '}' | 'method' 'void' Identificador '(' ')' '{' <Codigo>  '}' 
+<Metodo> ::= 'method' <Tipo> Identificador '(' <Parametros> ')' '{' <Codigo> 'return' Identificador ';' '}' 
+          | 'method' 'void' Identificador '(' <Parametros> ')' '{' <Codigo>  '}' 
+          | 'method' <Tipo> Identificador '(' <Parametros> ')' '{' <Codigo> 'return' '(' Identificador ')' ';' '}'
+          
+<Parametros> ::= <Tipos> Identificador ',' <Parametros> | <Tipos> Identificador |
 
 !Aleatorios          
 <Atribuicao> ::= Identificador '=' Numero ';'
-              
+
+!If
+<If> ::= 'if' '(' <Expressao> ')' 'then' '{' <Codigo> '}'
+      | 'if' '(' <Expressao> ')' 'then' '{' <Codigo> '}' 'else' '{' <Codigo> '}'
+      | 'if' '(' <Expressao> ')' 'then' '{' <Codigo> '}' 'else' <If>
+<Expressao> ::= <Valor> <OperadorRelacional> <Valor>
+             |<Valor> <OperadorRelacional> <Valor> <OperadorLogico> <Expressao>             
+<Valor> ::= Identificador | Numero
+
+!While
+<While> ::= 'while' '(' <Expressao> ')' '{' <Codigo> '}'
+
+!Read e Write
+<Read> ::= 'read' '(' <ParametrosLeitura> ')' ';'
+<ParametrosLeitura> ::= Identificador ',' <ParametrosLeitura> | Identificador        
+<Write> ::= 'write' '(' <ParametrosEscrita> ')' ';'
+<ParametrosEscrita> ::= Identificador ',' <ParametrosEscrita> | Identificador | '"' Identificador '"'
+         
