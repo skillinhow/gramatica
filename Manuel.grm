@@ -40,10 +40,16 @@ Boolean        =  'true' | 'false'
           | 'method' 'void' Identificador '(' <Parametros> ')' '{' <Codigo>  '}' 
           | 'method' <Tipo> Identificador '(' <Parametros> ')' '{' <Codigo> 'return' '(' Identificador ')' ';' '}'
           
-<Parametros> ::= <Tipos> Identificador ',' <Parametros> | <Tipos> Identificador |
+<Parametros> ::= <Tipos> <Argumento> ',' <Parametros> | <Tipos> <Argumento> |
 
 !Aleatorios          
 <Atribuicao> ::= Identificador '=' Numero ';'
+<Argumento> ::= Identificador | <Vetor> | <Matriz>
+
+!Vetores e Matrizes
+<Vetor> ::= Identificador '[' <Valores> ']'         
+<Matriz> ::= Identificador '[' <Valores> ']' '[' <Valores> ']'          
+<Valores> ::= Identificador | Numero
 
 !If
 <If> ::= 'if' '(' <Expressao> ')' 'then' '{' <Codigo> '}'
@@ -60,5 +66,5 @@ Boolean        =  'true' | 'false'
 <Read> ::= 'read' '(' <ParametrosLeitura> ')' ';'
 <ParametrosLeitura> ::= Identificador ',' <ParametrosLeitura> | Identificador        
 <Write> ::= 'write' '(' <ParametrosEscrita> ')' ';'
-<ParametrosEscrita> ::= Identificador ',' <ParametrosEscrita> | Identificador | '"' Identificador '"'
+<ParametrosEscrita> ::= <Argumentos> ',' <ParametrosEscrita> | <Argumentos> | '"' Identificador '"'
          
