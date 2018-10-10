@@ -21,30 +21,36 @@ Boolean        =  'true' | 'false'
         
 !Classe
 <Classe> ::= 'class' <NomeClasse> '{' <Codigo> '}' <Classe> | 'class' <NomeClasse> 'extends' <NomeClasse> '{' <Codigo> '}' <Classe> |
-<Codigo> ::= <Variaveis> <Codigo> | <Metodo> <Codigo> | <Atribuicao> <Codigo>| <If> <Codigo> | <While> <Codigo> | <Read> <Codigo> | <Write> <Codigo> |
+<Codigo> ::= <Atributos> <Codigo> | <Metodo> <Codigo> | <Atribuicao> <Codigo>| <If> <Codigo> | <While> <Codigo> | <Read> <Codigo> | <Write> <Codigo> |
 <NomeClasse> ::= Identificador
 
 !Constantes                   
 <Constantes> ::= 'const' '{' <MultConst> '}'
 <MultConst> ::= <Tipo> <AtribuicaoConst> ';' <MultConst> |             
 <AtribuicaoConst> ::= Identificador '=' Numero ',' <AtribuicaoConst> | Identificador '=' Numero |
-<Tipos> ::= <Tipo> | <NomeClasse>
 
-!Variaveis   
+
+!Variaveis   (Colocar variaveis com instanciação)
 <Variaveis> ::= 'variables' '{' <MultVar> '}' 
 <MultVar> ::= <Tipos> <DeclaracaoVar> ';' <MultVar> |           
-<DeclaracaoVar> ::= Identificador ',' <DeclaracaoVar> | Identificador |
+<DeclaracaoVar> ::= <Argumento> ',' <DeclaracaoVar> | <Argumento> |
+                 
+!Atributos
+<Atributos> ::= 'variables' '{' <MultAtributos> '}' 
+<MultAtributos> ::= <Tipos> <DeclaracaoAtributos> ';' <MultAtributos> |           
+<DeclaracaoAtributos> ::= <Argumento> ',' <DeclaracaoAtributos> | <Argumento> |
                  
 !Métodos
-<Metodo> ::= 'method' <Tipo> Identificador '(' <Parametros> ')' '{' <Codigo> 'return' Identificador ';' '}' 
-          | 'method' 'void' Identificador '(' <Parametros> ')' '{' <Codigo>  '}' 
-          | 'method' <Tipo> Identificador '(' <Parametros> ')' '{' <Codigo> 'return' '(' Identificador ')' ';' '}'
-          
+<Metodo> ::= 'method' <Tipo> Identificador '(' <Parametros> ')' '{' <CodigoMetodo> 'return' Identificador ';' '}' 
+          | 'method' 'void' Identificador '(' <Parametros> ')' '{' <CodigoMetodo>  '}' 
+          | 'method' <Tipo> Identificador '(' <Parametros> ')' '{' <CodigoMetodo> 'return' '(' Identificador ')' ';' '}'
+<CodigoMetodo> ::= <Variaveis> <Codigo> | <Metodo> <Codigo> | <Atribuicao> <Codigo>| <If> <Codigo> | <While> <Codigo> | <Read> <Codigo> | <Write> <Codigo> |
 <Parametros> ::= <Tipos> <Argumento> ',' <Parametros> | <Tipos> <Argumento> |
 
 !Aleatorios          
 <Atribuicao> ::= Identificador '=' Numero ';'
 <Argumento> ::= Identificador | <Vetor> | <Matriz>
+<Tipos> ::= <Tipo> | <NomeClasse>
 
 !Vetores e Matrizes
 <Vetor> ::= Identificador '[' <Valores> ']'         
@@ -64,7 +70,7 @@ Boolean        =  'true' | 'false'
 
 !Read e Write
 <Read> ::= 'read' '(' <ParametrosLeitura> ')' ';'
-<ParametrosLeitura> ::= Identificador ',' <ParametrosLeitura> | Identificador        
+<ParametrosLeitura> ::= <Argumento> ',' <ParametrosLeitura> | <Argumento>        
 <Write> ::= 'write' '(' <ParametrosEscrita> ')' ';'
-<ParametrosEscrita> ::= <Argumentos> ',' <ParametrosEscrita> | <Argumentos> | '"' Identificador '"'
+<ParametrosEscrita> ::= <Argumento> ',' <ParametrosEscrita> | <Argumento> | '"' Identificador '"'
          
